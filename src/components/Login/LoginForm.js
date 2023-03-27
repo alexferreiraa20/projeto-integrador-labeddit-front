@@ -14,9 +14,26 @@ import {
     Image,
     Divider
   } from '@chakra-ui/react';
+  import { useState } from 'react';
   import logo from '../../assets/logo-labenu.svg'
+  import { useForm } from '../../hooks/useForm';
   
   export default function LoginForm() {
+
+    const [ form, onChangeInputs, clearInputs ] = useForm({
+      email: "",
+      password: ""
+    })
+    const [ isEmailValid, setIsEmailValid ] = useState(true)
+    
+  
+    const onSubmit = (e) => {
+      e.preventDefault()
+      console.log(form)
+      setIsEmailValid(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(form.email))
+    }
+
+
     return (
       <Flex
         minH={'100vh'}
@@ -34,12 +51,21 @@ import {
             rounded={'lg'}
             size='363px'
           >
-            <Stack  spacing={2}>
-              <FormControl id="email">
-                <Input type="email" placeholder='E-mail' />
+            <Stack spacing={2}>
+              <form onSubmit={onSubmit}/>
+              <FormControl id="email" isInvalid={!isEmailValid}>
+                <Input 
+                  // type="email"
+                  value={form.email}
+                  onChange={onChangeInputs} 
+                  placeholder='E-mail' />
               </FormControl>
               <FormControl id="password">
-                <Input type="password" placeholder='Senha' />
+                <Input 
+                type="password" 
+                value={form.password}
+                onChange={onChangeInputs} 
+                placeholder='Senha' />
               </FormControl>
               <Stack spacing={2}>
                 <Stack
@@ -48,11 +74,12 @@ import {
                   justify={'space-between'}>
                 </Stack>
                 <Button
+                  type='submit'
                   bgGradient='linear(90deg, #FF6489 0%, #F9B24E 100%)' 
                   boxShadow='2xl'
                   color={'white'}
                   _hover={{
-                    bg: 'blue.500',
+                    bg: 'orange.500',
                   }}>
                   Continuar                
                 </Button>
@@ -65,7 +92,7 @@ import {
                   bgGradient={'white'}
                   color={'#FE7E02'}
                   _hover={{
-                    bg: 'blue.500',
+                    bg: 'orange.500',
                   }}>
                   Criar uma conta!
                 </Button>

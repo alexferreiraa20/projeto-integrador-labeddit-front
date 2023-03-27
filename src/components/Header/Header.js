@@ -23,21 +23,20 @@ const Header = () => {
                 return (
                     <>
                         <Button>X</Button>
-                        <img src={logo}/>
+                        <img src={logo} alt="logo Labenu"/>
                         <Button
                             onclick={() => goToPostPage(navigate)}
-
                         >Entrar
                         </Button>
                     </>
                 )
-            case "/post":
+            case "/":
                 return (
                     <>
                         <Button visibility={'hidden'} variant={'ghost'} fontSize={"2xl"} fontWeight={'bold'}  onClick={() => goToPostPage(navigate)}>
                             X
                         </Button>
-                        <img src={logo}/>
+                        <img src={logo} alt="logo Labenu"/>
                         <Button
                             onclick={() => goToLoginPage(navigate)}
                         >Logout
@@ -49,11 +48,10 @@ const Header = () => {
                     <>
                         <Button
                             onclick={() => goToPostPage(navigate)}
-
                         >
                             X
                         </Button>
-                            <img src={logo}/>
+                            <img src={logo} alt="logo Labenu"/>
                         <Button
                             onclick={() => goToLoginPage(navigate)}
 
@@ -66,10 +64,9 @@ const Header = () => {
                 return (
                     <>
                     <Button>X</Button>
-                        <img src={logo}/>
+                        <img src={logo} alt="logo Labenu"/>
                         <Button
                             onclick={() => goToPostPage(navigate)}
-
                         >Entrar
                         </Button>
                     </>
@@ -78,22 +75,20 @@ const Header = () => {
                 return (
                     <>
                     <Button>X</Button>
-                        <img src={logo}/>
+                        <img src={logo} alt="logo Labenu"/>
                         <Button
                             onclick={() => goToPostPage(navigate)}
-
                         >Entrar
                         </Button>
                     
                     </>
                 )
         }
-    }
-    
+    }    
         
     return(
     <>    
-    <Image src={status} alt='Barra de status' />
+        <Image src={status} alt='Barra de status' align={'center'} justifyItems={'center'}/>
         <HeaderContainer>
             {renderReader}
         </HeaderContainer>

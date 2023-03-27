@@ -6,5 +6,5 @@ export const HeaderContainer = styled.header`
     align-items: center;
     width: 100%;
     min-height: 50px;
-    background-color: #A8BBC6;
+    background-color: #D9D9D9;
 `
