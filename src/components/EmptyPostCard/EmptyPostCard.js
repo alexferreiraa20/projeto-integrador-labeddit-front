@@ -7,18 +7,56 @@ import {
     FormControl,
     Input,
     Button,
-    Spinner
+    Spinner,
+    Textarea
 } from '@chakra-ui/react'
+import { useForm } from '../../hooks/useForm'
+import axios from 'axios'
+import { BASE_URL } from '../../constants/constants'
 
 export default function EmptyPostCard() {
 
       const [isLoading, setIsLoading] = useState(false)
+      const [isContentValid, setIsContentValid] = useState(true)
 
-        const onSubmit = (e) => {
-        e.preventDefault()
-        // console.log(form)
-         }   
+      const [form, onChangeInputs, clearInputs] = useForm({
+        content: ""
+      })
 
+      
+      const createPost = async () => {
+        try {
+          setIsLoading(true)
+
+          const token = window.localStorage.getItem('labeddit-token');
+
+          const config = {
+            headers: {
+              Authorization: token
+            }
+          }
+    
+          const body = {
+            content: form.content,
+          }
+    
+          isContentValid && await axios.post(BASE_URL + "/posts", body, config)
+
+          setIsLoading(false)
+          clearInputs()
+          window.alert("Post criado com sucesso!")
+    
+        } catch (error) {
+          setIsLoading(false)
+          console.error(error?.response?.data?.message)
+          window.alert("Erro ao criar o post!")
+        }
+      }
+
+      // const onSubmit = (e) => {
+      //   e.preventDefault()
+      //   // console.log(form)
+      // }
 
         return (
         <Flex
@@ -32,26 +70,25 @@ export default function EmptyPostCard() {
             rounded={'lg'}
             // size='363px'
           >
-            <form onSubmit={onSubmit}>
+            <form >
               <Stack spacing={2} py={6} >
-                <FormControl id="text" >
-                  <Input
-                    name='text'
+                <FormControl id="content" >
+                  <Textarea
+                    name='content'
                     type="text"
-                    // value={form.email}
-                    // onChange={onChangeInputs}
+                    value={form.content}
+                    onChange={onChangeInputs}
                     placeholder='Escreva seu post...'
                     autoComplete='off'
                     bg={useColorModeValue('gray.50', 'gray.800')}
                     w= '364px'
-                    /* It's a typo. It should be `width= '100%'` */
                     // w= '100%'
                     h= '131px'
                   />
                 </FormControl>                
                 <Stack spacing={2}>                  
                   <Button
-                    // onClick={login}
+                    onClick={createPost}
                     type='submit'
                     bgGradient='linear(90deg, #FF6489 0%, #F9B24E 100%)'
                     boxShadow='2xl'

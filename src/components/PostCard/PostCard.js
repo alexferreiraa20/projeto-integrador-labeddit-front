@@ -21,6 +21,9 @@ export default function PostCard({ post }) {
     const [liked, setLiked] = useState(false)
     const [disliked, setDisLiked] = useState(false)
     
+
+    
+
     return (
         <Center pt={2}>
             <Box
@@ -35,7 +38,9 @@ export default function PostCard({ post }) {
                     <Box
                         // bg="black"
                         display={'inline-block'}
-                        w={'132px'}
+                        // w={'132px'}
+                        w={"100%"}
+
                         h={'16px'}
                         color="#6F6F6F"
                         mb={4}
@@ -45,6 +50,7 @@ export default function PostCard({ post }) {
                             fontFamily={'IBM Plex Sans'}
                             fontStyle='normal'
                             fontWeight='400'
+
                         >
                             Enviado por: {post?.creator?.nickName}
                         </Text>

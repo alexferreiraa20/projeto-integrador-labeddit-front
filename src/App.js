@@ -3,8 +3,8 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { GlobalContext } from "./contexts/GlobalContext"
 import Router  from "./routes/Router";
 import axios from "axios";
-import { BASE_URL } from "./constants/url";
-
+import { BASE_URL } from "./constants/constants";
+import { GlobalStyle } from "./GlobalStyles";
 
 
 export default function App() {
@@ -35,9 +35,7 @@ export default function App() {
       console.error(error?.response?.data?.message)
       window.alert("Erro ao buscar os posts!")
     }
-  }
-
-  
+  }  
 
   const context = {
     posts,
@@ -46,7 +44,7 @@ export default function App() {
 
 
   return (
-    <ChakraProvider resetCSS>
+    <ChakraProvider resetCSS  >
       <GlobalContext.Provider value={context}>
         <Router/> 
       </GlobalContext.Provider>

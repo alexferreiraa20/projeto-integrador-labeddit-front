@@ -7,7 +7,7 @@ import { useForm } from "../../hooks/useForm"
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { BASE_URL } from '../../constants/url'
+import { BASE_URL, validateEmail, validatePassword } from '../../constants/constants'
 import { goToPostPage, goToSignupPage } from '../../routes/coordinator'
 import {
   Flex,
@@ -24,8 +24,11 @@ import {
   useColorModeValue,
   Image,
   Divider,
-  Spinner
+  Spinner,
+  InputRightElement,
+  InputGroup
 } from '@chakra-ui/react'
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 
 
 const LoginPage = () => {
@@ -39,13 +42,15 @@ const LoginPage = () => {
   const [isEmailValid, setIsEmailValid] = useState(true)
   const [isPasswordValid, setIsPasswordValid] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
+  const [ showPassword, setShowPassword ] = useState(false)
+
 
 
   const onSubmit = (e) => {
     e.preventDefault()
     console.log(form)
-    setIsEmailValid(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(form.email))
-    setIsPasswordValid(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(form.password))
+    setIsEmailValid(validateEmail(form.email))
+    setIsPasswordValid(validatePassword(form.password))
   }
 
   const login = async () => {
@@ -57,7 +62,7 @@ const LoginPage = () => {
         password: form.password
       }
 
-      const response = await axios.post(BASE_URL + "/users/login", body)
+      const response = isEmailValid && isPasswordValid && await axios.post(BASE_URL + "/users/login", body)
       window.localStorage.setItem('labeddit-token', response.data.token)
       setIsLoading(false)
       goToPostPage(navigate)
@@ -73,6 +78,8 @@ const LoginPage = () => {
       <Header />
       <Flex
         minH={'100vh'}
+        maxW={'428px'}
+
         align={'start'}
         justify={'center'}
         bg={useColorModeValue('gray.50', 'gray.800')}>
@@ -100,6 +107,7 @@ const LoginPage = () => {
                   />
                 </FormControl>
                 <FormControl id="password">
+                  <InputGroup>
                   <Input
                     name='password'
                     type="password"
@@ -108,6 +116,18 @@ const LoginPage = () => {
                     placeholder='Senha'
                     autoComplete='off'    
                   />
+                  <InputRightElement h={"full"}>
+                    <Button
+                      variant={"ghost"}
+                      onClick={() =>
+                        setShowPassword((showPassword) => !showPassword)
+                      }
+                    >
+                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                    </Button>
+                </InputRightElement> 
+                </InputGroup>
+
                 </FormControl>
                 <Stack spacing={2} py={10}>
                   <Stack

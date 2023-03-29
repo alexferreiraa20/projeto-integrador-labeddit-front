@@ -5,7 +5,7 @@ import CommentCard from '../../components/CommentCard/CommentCard'
 import EmptyCommentCard from '../../components/EmptyCommentCard/EmptyCommentCard'
 import Header from '../../components/Header/Header'
 import PostCard from '../../components/PostCard/PostCard'
-import { BASE_URL } from '../../constants/url'
+import { BASE_URL } from '../../constants/constants'
 import { GlobalContext } from '../../contexts/GlobalContext'
 import { goToLoginPage } from '../../routes/coordinator'
 

@@ -7,7 +7,8 @@ import {
     FormControl,
     Input,
     Button,
-    Spinner
+    Spinner,
+    Textarea
 } from '@chakra-ui/react'
 
 export default function EmptyCommentCard() {
@@ -35,7 +36,7 @@ export default function EmptyCommentCard() {
             <form onSubmit={onSubmit}>
               <Stack spacing={2} pb={6} pt={2} >
                 <FormControl id="text" >
-                  <Input
+                  <Textarea
                     name='text'
                     type="text"
                     // value={form.email}

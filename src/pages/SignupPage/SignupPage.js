@@ -21,6 +21,9 @@ import {
   Link,
   Checkbox
 } from '@chakra-ui/react';
+import { BASE_URL, validateEmail, validatePassword, validateText } from '../../constants/constants';
+import { useForm } from '../../hooks/useForm';
+import axios from 'axios';
 
 
 
@@ -28,28 +31,67 @@ const SignupPage = () => {
 
   const navigate = useNavigate()
 
-  const [showPassword, setShowPassword] = useState(false)
-  const [isChecked, setIsChecked] = useState(false)
+  const [ showPassword, setShowPassword ] = useState(false)
+  const [ isChecked, setIsChecked ] = useState(false)
+  const [ isEmailValid, setIsEmailValid ] = useState(true)
+  const [ isPasswordValid, setIsPasswordValid ] = useState(true)
+  const [ isNickNameValid, setIsNickNameValid ] = useState(true)
+  const [ isLoading, setIsLoading ] = useState(false)
 
+  const [form, onChangeInputs, clearInputs] = useForm({
+    nickName: "",
+    email: "",
+    password: ""
+  })
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    console.log(form)
+    setIsEmailValid(validateEmail(form.email))
+    setIsPasswordValid(validatePassword(form.password))
+    setIsNickNameValid(validateText(form.nickName))
+  }
+
+  const signup = async () => {
+    try {
+      setIsLoading(true)
+
+      const body = {
+        nickName: form.nickName,
+        email: form.email,
+        password: form.password
+      }
+
+      const response = await axios.post(BASE_URL + "/users/signup", body)
+      window.localStorage.setItem('labeddit-token', response.data.token)
+      setIsLoading(false)
+      goToPostPage(navigate)
+    } catch (error) {
+      setIsLoading(false)
+      console.error(error?.response?.data?.message)
+      console.log(error?.response?.data?.message)
+      window.alert(error?.response?.data?.message)
+    }
+  }
 
   return (
     <>
       <Header />
       <Flex
-        minH={'100vh'}
+        minH={'88vh'}
+        maxW={'428px'}
         // align={'center'}
         justify={'center'}
         bg={useColorModeValue('gray.50', 'gray.800')}>
-        <Stack spacing={4} mx={'auto'} maxW={'lg'} py={12} px={6}>
-          <Stack align={'center'}>           
+        <Stack spacing={4} mx={'auto'} maxW={'lg'} py={12} px={6} justify={'space-between'}
+>
+          <Stack align={'center'} justify={'flex-start'}>           
             <Text fontFamily={'IBM Plex Sans'} fontStyle={'normal'} fontSize={'33px'} fontWeight={'bold'} color={'#373737'}>
               Olá, boas vindas ao LabEddit ;)
             </Text>
           </Stack>
-          <Box
-            // rounded={'lg'}
-            // bg={useColorModeValue('white', 'gray.700')}
-            // boxShadow={'lg'}
+          <form onSubmit={onSubmit}>
+          <Box            
             p={1}
             rounded={'lg'}
             size='363px'
@@ -61,22 +103,20 @@ const SignupPage = () => {
                     <Input
                       name='nickName'
                       type="text"
+                      value={form.nickName}
+                      onChange={onChangeInputs}
                       placeholder='Apelido'
                       autoComplete='off'
                     />
                   </FormControl>
                 </Box>
-                {/* <Box>
-                  <FormControl id="lastName">
-                    <FormLabel>Last Name</FormLabel>
-                    <Input type="text" />
-                  </FormControl>
-                </Box> */}
               </Stack>
               <FormControl id="email" isRequired>
                 <Input
                   name="email"
                   type="email"
+                  value={form.email}
+                  onChange={onChangeInputs}
                   placeholder='E-mail'
                   autoComplete='off'
                 />
@@ -86,21 +126,24 @@ const SignupPage = () => {
                   <Input
                     name='password'
                     type={showPassword ? 'text' : 'password'}
+                    value={form.password}
+                    onChange={onChangeInputs}
                     placeholder='Senha'
                     autoComplete='off'
                   />
-                  {/* <InputRightElement h={'full'}>
+                   <InputRightElement h={"full"}>
                     <Button
-                      variant={'ghost'}
+                      variant={"ghost"}
                       onClick={() =>
                         setShowPassword((showPassword) => !showPassword)
-                      }>
+                      }
+                    >
                       {showPassword ? <ViewIcon /> : <ViewOffIcon />}
                     </Button>
-                  </InputRightElement> */}
+                </InputRightElement>                  
                 </InputGroup>
               </FormControl>
-              <Stack spacing={4} mt={20} pt={2} py={14}>
+              <Stack spacing={4} mt={20} pt={2} >
                 <Text 
                   fontFamily={'Noto Sans'}
                   fontSize={'sm'}
@@ -122,6 +165,7 @@ const SignupPage = () => {
                 Eu concordo em receber emails sobre coisas legais no Labeddit 
                 </Checkbox>
                 <Button
+                  onClick={signup}
                   loadingText="Submitting"
                   size="lg"
                   variant={'ghost'}
@@ -139,14 +183,10 @@ const SignupPage = () => {
                 <Text align={'center'}>
                   Já possui uma conta? <Link onClick={() => goToLoginPage(navigate)} color={'blue.400'}>Login</Link>
                 </Text>
-              </Stack>
-              {/* <Stack >
-                <Text align={'center'}>
-                  Já possui uma conta? <Link onClick={() => goToLoginPage(navigate)} color={'blue.400'}>Login</Link>
-                </Text>
-              </Stack> */}
+              </Stack>              
             </Stack>
           </Box>
+          </form>
         </Stack>
       </Flex>
 
