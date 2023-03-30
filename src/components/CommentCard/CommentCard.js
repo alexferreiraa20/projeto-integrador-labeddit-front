@@ -32,10 +32,12 @@ export default function CommentCard({ comment }) {
                     <Box
                         // bg="black"
                         display={'inline-block'}
-                        w={'132px'}
+                        // w={'132px'}
+                        w={"100%"}
                         h={'16px'}
                         color="#6F6F6F"
                         mb={4}
+
                     >
                         <Text
                             fontSize={'12px'}

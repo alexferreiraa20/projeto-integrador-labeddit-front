@@ -7,8 +7,10 @@ import { useContext } from "react"
 import { goToPostPage, goToLoginPage } from "../../routes/coordinator"
 import { 
     Button, 
-    Image
+    Image,
+    Link
 } from '@chakra-ui/react';
+import { CloseButtonIcon } from "../Icons/CloseButtonIcon"
 
 
 const Header = () => {
@@ -17,13 +19,13 @@ const Header = () => {
     // const context = useContext(GlobalContext)
     const params = useParams()
 
-    const renderReader = () => {
+    const renderHeader = () => {
         switch (location.pathname) {
             case "/signup":
                 return (
                     <>
-                        <Button>X</Button>
-                        <img src={logo} alt="logo Labenu"/>
+                        <CloseButtonIcon visibility={'hidden'} onClick={() => goToPostPage(navigate)} />
+                        <Image src={logo} alt="logo Labenu"/>
                         <Button
                             onclick={() => goToPostPage(navigate)}
                         >Entrar
@@ -33,28 +35,35 @@ const Header = () => {
             case "/":
                 return (
                     <>
-                        <Button visibility={'hidden'} variant={'ghost'} fontSize={"2xl"} fontWeight={'bold'}  onClick={() => goToPostPage(navigate)}>
-                            X
-                        </Button>
-                        <img src={logo} alt="logo Labenu"/>
+                        <CloseButtonIcon visibility={'hidden'} onClick={() => goToPostPage(navigate)} />
+                        <Image src={logo} alt="logo Labenu"/>
                         <Button
+                            fontFamily={"Noto Sans"}
+                            variant={'link'}
+                            colorScheme={"blue"}
                             onclick={() => goToLoginPage(navigate)}
+                            
                         >Logout
                         </Button>
                     </>
                 )
-            case `/comment`:
+            case `/comments/${params.postId}`:
                 return (
                     <>
-                        <Button
-                            onclick={() => goToPostPage(navigate)}
+                        <CloseButtonIcon onClick={() => goToPostPage(navigate)} />
+
+                        {/* <Button
+                             variant={'ghost'} fontSize={"2xl"} fontWeight={'bold'}  onClick={() => goToPostPage(navigate)}
                         >
                             X
-                        </Button>
-                            <img src={logo} alt="logo Labenu"/>
+                        </Button> */}
+                            <Image src={logo} alt="logo Labenu"/>
                         <Button
+                            fontFamily={"Noto Sans"}
+                            variant={'link'}
+                            colorScheme={"blue"}
                             onclick={() => goToLoginPage(navigate)}
-
+                            
                         >Logout
                         </Button>
                     </>
@@ -63,36 +72,40 @@ const Header = () => {
             case `/*`:
                 return (
                     <>
-                    <Button>X</Button>
-                        <img src={logo} alt="logo Labenu"/>
+                        <CloseButtonIcon onClick={() => goToPostPage(navigate)} />
+                        <Image src={logo} alt="logo Labenu"/>
                         <Button
-                            onclick={() => goToPostPage(navigate)}
-                        >Entrar
+                            fontFamily={"Noto Sans"}
+                            variant={'link'}
+                            colorScheme={"blue"}
+                            onclick={() => goToLoginPage(navigate)}
+                            
+                        >Logout
                         </Button>
                     </>
                 )
             default:
                 return (
                     <>
-                    <Button>X</Button>
-                        <img src={logo} alt="logo Labenu"/>
+                        <CloseButtonIcon visibility={'hidden'} onClick={() => goToPostPage(navigate)} />
+                        <Image src={logo} alt="logo Labenu"/>
                         <Button
-                            onclick={() => goToPostPage(navigate)}
-                        >Entrar
+                            fontFamily={"Noto Sans"}
+                            variant={'link'}
+                            colorScheme={"blue"}
+                            onclick={() => goToLoginPage(navigate)}
+                            
+                        >Logout
                         </Button>
-                    
                     </>
                 )
         }
     }    
         
     return(
-    <>    
-        <Image src={status} alt='Barra de status' align={'center'} justifyItems={'center'}/>
         <HeaderContainer>
-            {renderReader}
+            {renderHeader()}
         </HeaderContainer>
-    </>
     )
 }
 

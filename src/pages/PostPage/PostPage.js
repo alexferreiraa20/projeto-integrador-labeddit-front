@@ -2,33 +2,16 @@ import React, { useContext, useEffect, useState } from 'react'
 import Header from '../../components/Header/Header'
 import PostCard from '../../components/PostCard/PostCard'
 import EmptyPostCard from '../../components/EmptyPostCard/EmptyPostCard'
-import {
-  Flex,
-  Box,
-  FormControl,
-  FormLabel,
-  Input,
-  Checkbox,
-  Stack,
-  Link,
-  Button,
-  Heading,
-  Text,
-  useColorModeValue,
-  Image,
-  Divider,
-  Spinner
-} from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { GlobalContext } from '../../contexts/GlobalContext'
 import { goToLoginPage } from '../../routes/coordinator'
+import { PostPageContainer } from './PostPage.Style'
 
 const PostPage = () => {
   const navigate = useNavigate()
   const context = useContext(GlobalContext)
 
   const { posts, fetchPosts } = context
-  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const token = window.localStorage.getItem('labeddit-token')
@@ -42,14 +25,10 @@ const PostPage = () => {
 
   console.log(posts)
 
-
-
-  const onSubmit = (e) => {
-    e.preventDefault()
-    // console.log(form)
-  }
+  
+ 
   return (
-    <>
+    <PostPageContainer>
         <Header/>
         <EmptyPostCard/>
         {posts.map((post) => {
@@ -58,7 +37,7 @@ const PostPage = () => {
           post={post}
           />
         })}
-    </>
+    </PostPageContainer>
   )
 }
 
