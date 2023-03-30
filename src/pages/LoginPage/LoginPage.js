@@ -1,4 +1,3 @@
-// import { Heading } from '@chakra-ui/react'
 import React from 'react'
 import Header from '../../components/Header/Header'
 // import LoginForm from '../../components/Login/LoginForm'
@@ -29,6 +28,7 @@ import {
   InputGroup
 } from '@chakra-ui/react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
+import { LoginPageContainer } from './LoginPage.Style'
 
 
 const LoginPage = () => {
@@ -39,12 +39,10 @@ const LoginPage = () => {
     email: "",
     password: ""
   })
-  const [isEmailValid, setIsEmailValid] = useState(true)
-  const [isPasswordValid, setIsPasswordValid] = useState(true)
-  const [isLoading, setIsLoading] = useState(false)
+  const [ isEmailValid, setIsEmailValid ] = useState(true)
+  const [ isPasswordValid, setIsPasswordValid ] = useState(true)
+  const [ isLoading, setIsLoading ] = useState(false)
   const [ showPassword, setShowPassword ] = useState(false)
-
-
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -74,7 +72,7 @@ const LoginPage = () => {
   }
 
   return (
-    <>
+    <LoginPageContainer>
       <Header />
       <Flex
         minH={'100vh'}
@@ -168,7 +166,7 @@ const LoginPage = () => {
           </Box>
         </Stack>
       </Flex>
-    </>
+    </LoginPageContainer>
   )
 }
 

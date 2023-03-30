@@ -5,14 +5,13 @@ import {
     useColorModeValue,
     Stack,
     FormControl,
-    Input,
     Button,
     Spinner,
     Textarea
 } from '@chakra-ui/react'
 import { useForm } from '../../hooks/useForm'
 import axios from 'axios'
-import { BASE_URL } from '../../constants/constants'
+import { BASE_URL, validateText } from '../../constants/constants'
 
 export default function EmptyPostCard() {
 
@@ -22,7 +21,6 @@ export default function EmptyPostCard() {
       const [form, onChangeInputs, clearInputs] = useForm({
         content: ""
       })
-
       
       const createPost = async () => {
         try {
@@ -48,15 +46,15 @@ export default function EmptyPostCard() {
     
         } catch (error) {
           setIsLoading(false)
-          console.error(error?.response?.data?.message)
-          window.alert("Erro ao criar o post!")
+          console.error(error?.response)
+          window.alert(error?.response?.data)
         }
       }
 
-      // const onSubmit = (e) => {
-      //   e.preventDefault()
-      //   // console.log(form)
-      // }
+      const onSubmit = (e) => {
+        setIsContentValid(validateText(form.content))
+          // console.log(form)
+      }
 
         return (
         <Flex
@@ -70,10 +68,10 @@ export default function EmptyPostCard() {
             rounded={'lg'}
             // size='363px'
           >
-            <form >
+            <form onSubmit={onSubmit} >
               <Stack spacing={2} py={6} >
-                <FormControl id="content" >
-                  <Textarea
+                <FormControl id="content" isRequired >
+                  <Textarea                    
                     name='content'
                     type="text"
                     value={form.content}

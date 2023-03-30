@@ -24,6 +24,7 @@ import {
 import { BASE_URL, validateEmail, validatePassword, validateText } from '../../constants/constants';
 import { useForm } from '../../hooks/useForm';
 import axios from 'axios';
+import { SignupPageContainer } from './SignupPage.Style';
 
 
 
@@ -75,7 +76,7 @@ const SignupPage = () => {
   }
 
   return (
-    <>
+    <SignupPageContainer>
       <Header />
       <Flex
         minH={'88vh'}
@@ -190,7 +191,7 @@ const SignupPage = () => {
         </Stack>
       </Flex>
 
-    </>
+    </SignupPageContainer>
   )
 }
 

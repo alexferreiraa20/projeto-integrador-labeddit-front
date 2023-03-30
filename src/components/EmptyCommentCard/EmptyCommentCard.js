@@ -10,14 +10,54 @@ import {
     Spinner,
     Textarea
 } from '@chakra-ui/react'
+import { useForm } from '../../hooks/useForm'
+import axios from 'axios'
+import { BASE_URL, validateText } from '../../constants/constants'
+import { useParams } from 'react-router-dom'
 
 export default function EmptyCommentCard() {
 
+      const params = useParams()
+
       const [isLoading, setIsLoading] = useState(false)
+      const [isContentValid, setIsContentValid] = useState(true)
+
+      const [form, onChangeInputs, clearInputs] = useForm({
+        content: ""
+      })
+
+      const createComment = async () => {
+        try {
+          setIsLoading(true)
+
+          const token = window.localStorage.getItem('labeddit-token');
+
+          const config = {
+            headers: {
+              Authorization: token
+            }
+          }
+    
+          const body = {
+            content: form.content,
+          }
+    
+          isContentValid && await axios.post(BASE_URL + `/comments/${params.postId}`, body, config)
+
+          setIsLoading(false)
+          clearInputs()
+          window.alert("Comentário criado com sucesso!")
+    
+        } catch (error) {
+          setIsLoading(false)
+          console.error(error?.response)
+          window.alert(error?.response?.data)
+        }
+      }
 
         const onSubmit = (e) => {
-        e.preventDefault()
-        // console.log(form)
+          setIsContentValid(validateText(form.content))
+          // console.log(form)
          }   
 
 
@@ -35,12 +75,12 @@ export default function EmptyCommentCard() {
           >
             <form onSubmit={onSubmit}>
               <Stack spacing={2} pb={6} pt={2} >
-                <FormControl id="text" >
+                <FormControl id="content" isRequired >
                   <Textarea
-                    name='text'
+                    name='content'
                     type="text"
-                    // value={form.email}
-                    // onChange={onChangeInputs}
+                    value={form.content}
+                    onChange={onChangeInputs}
                     placeholder='Adicionar comentário'
                     autoComplete='off'
                     bg={useColorModeValue('gray.50', 'gray.800')}
@@ -51,7 +91,7 @@ export default function EmptyCommentCard() {
                 </FormControl>                
                 <Stack spacing={2}>                  
                   <Button
-                    // onClick={login}
+                    onClick={createComment}
                     type='submit'
                     bgGradient='linear(90deg, #FF6489 0%, #F9B24E 100%)'
                     boxShadow='2xl'

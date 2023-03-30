@@ -5,6 +5,7 @@ import EmptyPostCard from '../../components/EmptyPostCard/EmptyPostCard'
 import { useNavigate } from 'react-router-dom'
 import { GlobalContext } from '../../contexts/GlobalContext'
 import { goToLoginPage } from '../../routes/coordinator'
+import { PostPageContainer } from './PostPage.Style'
 
 const PostPage = () => {
   const navigate = useNavigate()
@@ -27,7 +28,7 @@ const PostPage = () => {
   
  
   return (
-    <>
+    <PostPageContainer>
         <Header/>
         <EmptyPostCard/>
         {posts.map((post) => {
@@ -36,7 +37,7 @@ const PostPage = () => {
           post={post}
           />
         })}
-    </>
+    </PostPageContainer>
   )
 }
 

@@ -22,8 +22,6 @@ export default function PostCard({ post }) {
     const [disliked, setDisLiked] = useState(false)
     
 
-    
-
     return (
         <Center pt={2}>
             <Box

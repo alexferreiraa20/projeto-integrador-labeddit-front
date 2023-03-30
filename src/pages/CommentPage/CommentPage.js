@@ -8,6 +8,7 @@ import PostCard from '../../components/PostCard/PostCard'
 import { BASE_URL } from '../../constants/constants'
 import { GlobalContext } from '../../contexts/GlobalContext'
 import { goToLoginPage } from '../../routes/coordinator'
+import { CommentsPageContainer } from './CommentPage.Style'
 
 const CommentPage = () => {
   const navigate = useNavigate()
@@ -57,13 +58,6 @@ const CommentPage = () => {
     }
   } 
 
-  // const findPost = (params) => {
-  //   const postComment = posts.filter(
-  //     (post) => post.id === params.postId       
-  //   )
-  //   setCurrentPost(postComment)
-  // }
-
   const fetchCurrentPost = async () => {
     try {
       const token = window.localStorage.getItem('labeddit-token')
@@ -87,7 +81,7 @@ const CommentPage = () => {
   
   
   return (
-    <>
+    <CommentsPageContainer>
      <Header/>    
       <PostCard post={currentPost}/>     
       <EmptyCommentCard/>
@@ -98,7 +92,7 @@ const CommentPage = () => {
       />
      })}
 
-    </>
+    </CommentsPageContainer>
   )
 }
 
