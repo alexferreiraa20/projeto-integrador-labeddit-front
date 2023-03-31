@@ -20,6 +20,8 @@ const CommentPage = () => {
   const [ comments, setComments ] = useState([])
   const [ currentPost , setCurrentPost ] = useState([])
   const [ isLoading, setIsLoading ] = useState(false)
+  const [ liked, setLiked ] = useState(false)
+  const [ disliked, setDisLiked ] = useState(false)
 
   useEffect(() => {
     const token = window.localStorage.getItem('labeddit-token')
@@ -32,6 +34,27 @@ const CommentPage = () => {
       fetchCurrentPost()
     }
   }, [])
+
+  const fetchCurrentPost = async () => {
+    try {
+      const token = window.localStorage.getItem('labeddit-token')
+
+      const config = {
+        headers: {
+          Authorization: token
+        }
+      }
+
+      const response = await axios.get(BASE_URL + `/posts/${params.postId}`, config)
+      console.log(response.data)
+      setCurrentPost(response.data)
+      setIsLoading(false)
+    } catch (error) {
+      setIsLoading(false)
+      console.error(error?.response?.data?.message)
+      window.alert("Erro ao buscar o post!")
+    }
+  }
   
   const fetchComments = async () => {
     try {
@@ -56,28 +79,52 @@ const CommentPage = () => {
       console.error(error?.response)
       window.alert("Erro ao buscar os comentários!")
     }
-  } 
+  }  
+  
+  const handleLike = (id) => {
+      const body = {
+          like: true
+      }
+      likeDislikePost(id,body)
+      setLiked(!liked)
+      setDisLiked(disliked)
+      // fetchPosts()
+    }
 
-  const fetchCurrentPost = async () => {
-    try {
-      const token = window.localStorage.getItem('labeddit-token')
-
-      const config = {
-        headers: {
-          Authorization: token
-        }
+    const handleDislike = (id) => {
+      const body = {
+          like: false
+      }
+      likeDislikePost(id,body)
+      setDisLiked(!disliked)
+      setLiked(liked)
+      // handleRefresh()
       }
 
-      const response = await axios.get(BASE_URL + `/posts/${params.postId}`, config)
-      console.log(response.data)
-      setCurrentPost(response.data)
-      setIsLoading(false)
-    } catch (error) {
-      setIsLoading(false)
-      console.error(error?.response?.data?.message)
-      window.alert("Erro ao buscar o post!")
-    }
-  } 
+    const likeDislikePost = async (id, body) => {
+      try {
+
+        const token = window.localStorage.getItem('labeddit-token');
+
+        const config = {
+          headers: {
+            Authorization: token
+          }
+        }
+      
+        await axios.put(BASE_URL + `/comments/${id}/like`, body, config)
+
+        // console.log(response)
+ 
+      } catch (error) {
+        console.error(error?.response)
+        window.alert(error?.response?.data)
+      }
+    }    
+  
+    useEffect(() => {
+      fetchComments()
+     }, [ liked, disliked ])
   
   
   return (
@@ -89,6 +136,11 @@ const CommentPage = () => {
       return <CommentCard
         key={comment.id}
         comment={comment}
+        handleLike={handleLike}
+        handleDislike={handleDislike}
+        liked={liked}
+        disliked={disliked}
+        likeDislikePost={likeDislikePost}
       />
      })}
 

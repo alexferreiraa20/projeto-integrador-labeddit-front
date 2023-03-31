@@ -30,10 +30,7 @@ const PostPage = () => {
   const [liked, setLiked] = useState(false)
   const [disliked, setDisLiked] = useState(false)
  
-  const handleRefresh = () => {
-      // by calling this method react re-renders the component
-      this.setState({});
-    }  
+  
   const handleLike = (id) => {
       const body = {
           like: true
@@ -91,9 +88,6 @@ const PostPage = () => {
           handleDislike={handleDislike}
           liked={liked}
           disliked={disliked}
-          likeDislikePost={likeDislikePost}
-          postCreatorNickName={post.creator.nickName}
-          postContent={post.content}
           />
         })}
     </PostPageContainer>

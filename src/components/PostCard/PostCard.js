@@ -14,64 +14,33 @@ import { useNavigate } from 'react-router-dom'
 import { goToCommentPage } from '../../routes/coordinator'
 import { GlobalContext } from '../../contexts/GlobalContext'
 
-export default function PostCard({ post, handleLike, handleDislike, liked, disliked, likeDislikePost  }) {
+export default function PostCard({ post, handleLike, handleDislike, liked, disliked  }) {
     const navigate = useNavigate()
     const context = useContext(GlobalContext)
     const { fetchPosts } = context
 
     
-    // const [liked, setLiked] = useState(false)
-    // const [disliked, setDisLiked] = useState(false)
-   
-    // // const handleRefresh = () => {
-    // //     // by calling this method react re-renders the component
-    // //     this.setState({});
-    // //   }  
-    // const handleLike = (id) => {
-    //     const body = {
-    //         like: true
-    //     }
-    //     likeDislikePost(id,body)
-    //     setLiked(!liked)
-    //     setDisLiked(disliked)
-    //     // fetchPosts()
-    //   }
-
-    //   const handleDislike = (id) => {
-    //     const body = {
-    //         like: false
-    //     }
-    //     likeDislikePost(id,body)
-    //     setDisLiked(!disliked)
-    //     setLiked(liked)
-    //     // handleRefresh()
-    //     }
-        
-
-    //   const likeDislikePost = async (body) => {
-    //     try {
-
-    //       const token = window.localStorage.getItem('labeddit-token');
-
-    //       const config = {
-    //         headers: {
-    //           Authorization: token
-    //         }
-    //       }
-        
-    //       await axios.put(BASE_URL + `/posts/${post.id}/like`, body, config)
-   
-    //     } catch (error) {
-    //       console.error(error?.response)
-    //       window.alert(error?.response?.data)
-    //     }
-    //   }
+    const [isLiked, setIsLiked] = useState(false)
+    const [isDisliked, setIsDisLiked] = useState(false)   
       
     
-      useEffect(() => {
-        fetchPosts()
-        // refreshPage()
-       }, [ liked, disliked ])
+    //   useEffect(() => {
+    //     fetchPosts()
+    //     // if (liked===true) {
+    //     //     setIsLiked(true)
+    //     //     setIsDisLiked(false)
+    
+    //     // } else if (disliked===false) {
+    //     //     setIsLiked(false)
+    //     //     setIsDisLiked(true)
+    //     // } else {
+    //     //     setIsLiked(false)
+    //     //     setIsDisLiked(false)
+    //     // }
+    //     // refreshPage()
+    //     console.log(liked)
+    //     console.log(disliked)
+    //    }, [ liked, disliked ])
 
     return (
         <Center pt={2}>
@@ -120,7 +89,7 @@ export default function PostCard({ post, handleLike, handleDislike, liked, disli
                             cursor="pointer"
                             onClick={() => handleLike(post.id)}
                         >
-                            {liked ? (
+                            {isLiked ? (
                                 <ArrowUpFillIcon fill="#008000" fontSize={'24px'} /> 
                             ) : (
                                 <ArrowUpIcon fontSize={'24px'} />
@@ -153,7 +122,7 @@ export default function PostCard({ post, handleLike, handleDislike, liked, disli
                             cursor="pointer"
                             onClick={() => handleDislike(post.id)}
                         >
-                            {disliked ? (
+                            {isDisliked ? (
                                 <ArrowDownFillIcon fill="#ff0000" fontSize={'24px'} /> 
                             ) : (
                                 <ArrowDownIcon fontSize={'24px'} />

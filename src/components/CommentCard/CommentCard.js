@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 
-export default function CommentCard({ comment }) {
+export default function CommentCard({ comment, handleLike, handleDislike }) {
     const navigate = useNavigate()
     
     const [liked, setLiked] = useState(false)
@@ -66,7 +66,7 @@ export default function CommentCard({ comment }) {
                         <Flex
                             p={1}
                             cursor="pointer"
-                            onClick={() => { setLiked(!liked) }}
+                            onClick={() => handleLike(comment.id)}
                         >
                             {liked ? (
                                 <ArrowUpFillIcon fill="#008000" fontSize={'24px'} />
@@ -86,11 +86,19 @@ export default function CommentCard({ comment }) {
                             >
                                 {comment?.likes}
                             </Text>
+                            <Text 
+                                fontSize={'9.5px'}
+                                fontFamily={'IBM Plex Sans'}
+                                fontStyle='normal'
+                                fontWeight='400'color={'gray.500'}
+                            >
+                                {comment?.dislikes}
+                            </Text>
                         </Box>
                         <Flex
                             p={1}
                             cursor="pointer"
-                            onClick={() => setDisLiked(!disliked)}
+                            onClick={() => handleDislike(comment.id)}
                         >
                             {disliked ? (
                                 <ArrowDownFillIcon fill="#ff0000" fontSize={'24px'} />
