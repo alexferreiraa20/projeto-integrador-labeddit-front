@@ -1,26 +1,77 @@
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import ballon from '../../assets/comment-button.svg'
 import { ArrowUpIcon, ArrowUpFillIcon } from '../Icons/ArrowUpIcon'
 import { ArrowDownFillIcon, ArrowDownIcon } from '../Icons/ArrowDownIcon'
 import {
     Box,
-    Heading,
     Text,
     Image,
     Flex,
     Center,
-    useColorModeValue,
     HStack,
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { goToCommentPage } from '../../routes/coordinator'
+import { GlobalContext } from '../../contexts/GlobalContext'
 
-export default function PostCard({ post }) {
+export default function PostCard({ post, handleLike, handleDislike, liked, disliked, likeDislikePost  }) {
     const navigate = useNavigate()
+    const context = useContext(GlobalContext)
+    const { fetchPosts } = context
+
     
-    const [liked, setLiked] = useState(false)
-    const [disliked, setDisLiked] = useState(false)
+    // const [liked, setLiked] = useState(false)
+    // const [disliked, setDisLiked] = useState(false)
+   
+    // // const handleRefresh = () => {
+    // //     // by calling this method react re-renders the component
+    // //     this.setState({});
+    // //   }  
+    // const handleLike = (id) => {
+    //     const body = {
+    //         like: true
+    //     }
+    //     likeDislikePost(id,body)
+    //     setLiked(!liked)
+    //     setDisLiked(disliked)
+    //     // fetchPosts()
+    //   }
+
+    //   const handleDislike = (id) => {
+    //     const body = {
+    //         like: false
+    //     }
+    //     likeDislikePost(id,body)
+    //     setDisLiked(!disliked)
+    //     setLiked(liked)
+    //     // handleRefresh()
+    //     }
+        
+
+    //   const likeDislikePost = async (body) => {
+    //     try {
+
+    //       const token = window.localStorage.getItem('labeddit-token');
+
+    //       const config = {
+    //         headers: {
+    //           Authorization: token
+    //         }
+    //       }
+        
+    //       await axios.put(BASE_URL + `/posts/${post.id}/like`, body, config)
+   
+    //     } catch (error) {
+    //       console.error(error?.response)
+    //       window.alert(error?.response?.data)
+    //     }
+    //   }
+      
     
+      useEffect(() => {
+        fetchPosts()
+        // refreshPage()
+       }, [ liked, disliked ])
 
     return (
         <Center pt={2}>
@@ -34,11 +85,8 @@ export default function PostCard({ post }) {
             >
                 <Box py={1} px={2}>
                     <Box
-                        // bg="black"
                         display={'inline-block'}
-                        // w={'132px'}
                         w={"100%"}
-
                         h={'16px'}
                         color="#6F6F6F"
                         mb={4}
@@ -48,7 +96,6 @@ export default function PostCard({ post }) {
                             fontFamily={'IBM Plex Sans'}
                             fontStyle='normal'
                             fontWeight='400'
-
                         >
                             Enviado por: {post?.creator?.nickName}
                         </Text>
@@ -71,10 +118,10 @@ export default function PostCard({ post }) {
                         <Flex
                             p={1}
                             cursor="pointer"
-                            onClick={() => { setLiked(!liked) }}
+                            onClick={() => handleLike(post.id)}
                         >
                             {liked ? (
-                                <ArrowUpFillIcon fill="#008000" fontSize={'24px'} />
+                                <ArrowUpFillIcon fill="#008000" fontSize={'24px'} /> 
                             ) : (
                                 <ArrowUpIcon fontSize={'24px'} />
                             )}
@@ -82,6 +129,7 @@ export default function PostCard({ post }) {
                         <Box
                             p={1}
                             cursor="pointer"
+                            
                         >
                             <Text 
                                 fontSize={'9.5px'}
@@ -91,14 +139,22 @@ export default function PostCard({ post }) {
                             >
                                 {post?.likes}
                             </Text>
+                            <Text 
+                                fontSize={'9.5px'}
+                                fontFamily={'IBM Plex Sans'}
+                                fontStyle='normal'
+                                fontWeight='400'color={'gray.500'}
+                            >
+                                {post?.dislikes}
+                            </Text>
                         </Box>
                         <Flex
                             p={1}
                             cursor="pointer"
-                            onClick={() => setDisLiked(!disliked)}
+                            onClick={() => handleDislike(post.id)}
                         >
                             {disliked ? (
-                                <ArrowDownFillIcon fill="#ff0000" fontSize={'24px'} />
+                                <ArrowDownFillIcon fill="#ff0000" fontSize={'24px'} /> 
                             ) : (
                                 <ArrowDownIcon fontSize={'24px'} />
                             )}
