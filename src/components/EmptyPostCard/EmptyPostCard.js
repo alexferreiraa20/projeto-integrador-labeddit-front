@@ -1,19 +1,26 @@
-import { useState } from 'react'
-import {
-    Box,
-    Flex,
-    useColorModeValue,
-    Stack,
-    FormControl,
-    Button,
-    Spinner,
-    Textarea
-} from '@chakra-ui/react'
+import { useContext, useState } from 'react'
+
 import { useForm } from '../../hooks/useForm'
 import axios from 'axios'
 import { BASE_URL, validateText } from '../../constants/constants'
+import { GlobalContext } from '../../contexts/GlobalContext'
+import {
+  Box,
+  Flex,
+  useColorModeValue,
+  Stack,
+  FormControl,
+  Button,
+  Spinner,
+  Textarea,
+  Skeleton
+} from '@chakra-ui/react'
 
 export default function EmptyPostCard() {
+
+  const context = useContext(GlobalContext)
+
+  const { posts, fetchPosts } = context
 
       const [isLoading, setIsLoading] = useState(false)
       const [isContentValid, setIsContentValid] = useState(true)
@@ -43,7 +50,7 @@ export default function EmptyPostCard() {
           setIsLoading(false)
           clearInputs()
           window.alert("Post criado com sucesso!")
-    
+          fetchPosts()
         } catch (error) {
           setIsLoading(false)
           console.error(error?.response)
@@ -51,7 +58,7 @@ export default function EmptyPostCard() {
         }
       }
 
-      const onSubmit = (e) => {
+      const onSubmit = () => {
         setIsContentValid(validateText(form.content))
           // console.log(form)
       }
@@ -61,8 +68,12 @@ export default function EmptyPostCard() {
           minH={'10vh'}
           align={'start'}
           justify={'center'}
-          // bg={useColorModeValue('gray.50', 'gray.800')}
         >
+          <Skeleton
+            isLoaded={!isLoading}
+            w="364px"
+            borderRadius={'12px'}
+            >
         <Stack spacing={4} mx={'auto'} maxW={'lg'} borderBottom={'1px'} borderBottomColor={'linear(90deg, #FF6489 0%, #F9B24E 100%)'}>          
           <Box
             rounded={'lg'}
@@ -102,6 +113,7 @@ export default function EmptyPostCard() {
             </form >
           </Box>
         </Stack>
+        </Skeleton>
       </Flex>
     )
 }

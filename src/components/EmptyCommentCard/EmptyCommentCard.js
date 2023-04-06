@@ -5,17 +5,17 @@ import {
     useColorModeValue,
     Stack,
     FormControl,
-    Input,
     Button,
     Spinner,
-    Textarea
+    Textarea,
+    Skeleton
 } from '@chakra-ui/react'
 import { useForm } from '../../hooks/useForm'
 import axios from 'axios'
 import { BASE_URL, validateText } from '../../constants/constants'
 import { useParams } from 'react-router-dom'
 
-export default function EmptyCommentCard() {
+export default function EmptyCommentCard({ fetchComments }) {
 
       const params = useParams()
 
@@ -47,7 +47,8 @@ export default function EmptyCommentCard() {
           setIsLoading(false)
           clearInputs()
           window.alert("Comentário criado com sucesso!")
-    
+          fetchComments()
+
         } catch (error) {
           setIsLoading(false)
           console.error(error?.response)
@@ -57,17 +58,20 @@ export default function EmptyCommentCard() {
 
         const onSubmit = (e) => {
           setIsContentValid(validateText(form.content))
-          // console.log(form)
+          fetchComments()
          }   
-
 
         return (
         <Flex
           minH={'10vh'}
           align={'start'}
           justify={'center'}
-          // bg={useColorModeValue('gray.50', 'gray.800')}
         >
+          <Skeleton
+            isLoaded={!isLoading}
+            w="364px"
+            borderRadius={'12px'}
+            >
         <Stack spacing={4} mx={'auto'} maxW={'lg'} borderBottom={'1px'} borderBottomColor={'linear(90deg, #FF6489 0%, #F9B24E 100%)'}>          
           <Box
             rounded={'lg'}
@@ -107,6 +111,7 @@ export default function EmptyCommentCard() {
             </form >
           </Box>
         </Stack>
+        </Skeleton>
       </Flex>
     )
 }

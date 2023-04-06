@@ -8,10 +8,11 @@ import {
     Flex,
     Center,
     HStack,
+    Skeleton,
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 
-export default function CommentCard({ comment, handleLike, handleDislike }) {
+export default function CommentCard({ comment, handleLike, handleDislike, isLoading }) {
     const navigate = useNavigate()
     
     const [liked, setLiked] = useState(false)
@@ -20,6 +21,11 @@ export default function CommentCard({ comment, handleLike, handleDislike }) {
 
     return (
         <Center pt={2}>
+            {/* <Skeleton
+            isLoaded={!isLoading}
+            w="364px"
+            borderRadius={'12px'}
+            > */}
             <Box
                 w="364px"
                 borderRadius={'12px'}
@@ -110,6 +116,7 @@ export default function CommentCard({ comment, handleLike, handleDislike }) {
                     
                 </HStack>
             </Box>
+            {/* </Skeleton> */}
         </Center>
     )
 }
