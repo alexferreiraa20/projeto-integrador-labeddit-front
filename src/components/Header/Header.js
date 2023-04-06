@@ -13,88 +13,91 @@ import {
 import { CloseButtonIcon } from "../Icons/CloseButtonIcon"
 
 
-const Header = () => {
+const Header = ({ isLoggedIn }) => {
     const navigate = useNavigate()
     const location = useLocation()
     // const context = useContext(GlobalContext)
     const params = useParams()
 
+    const logout = () => {
+        if(isLoggedIn) {
+            window.localStorage.removeItem('labeddit-token')
+        }
+        goToLoginPage(navigate)        
+    }
+
     const renderHeader = () => {
         switch (location.pathname) {
-            case "/signup":
-                return (
-                    <>
-                        <CloseButtonIcon visibility={'hidden'} onClick={() => goToPostPage(navigate)} />
-                        <Image src={logo} alt="logo Labenu"/>
-                        <Button
-                            onclick={() => goToPostPage(navigate)}
-                        >Entrar
-                        </Button>
-                    </>
-                )
             case "/":
                 return (
-                    <>
+                    <HeaderContainer>
                         <CloseButtonIcon visibility={'hidden'} onClick={() => goToPostPage(navigate)} />
                         <Image src={logo} alt="logo Labenu"/>
                         <Button
                             fontFamily={"Noto Sans"}
                             variant={'link'}
                             colorScheme={"blue"}
-                            onclick={() => goToLoginPage(navigate)}
-                            
+                            onClick={logout}                            
                         >Logout
                         </Button>
-                    </>
+                    </HeaderContainer>
                 )
-            case `/comments/${params.postId}`:
+            case "/signup":
                 return (
-                    <>
-                        <CloseButtonIcon onClick={() => goToPostPage(navigate)} />
-
-                        {/* <Button
-                             variant={'ghost'} fontSize={"2xl"} fontWeight={'bold'}  onClick={() => goToPostPage(navigate)}
-                        >
-                            X
-                        </Button> */}
-                            <Image src={logo} alt="logo Labenu"/>
+                    <HeaderContainer>
+                        <CloseButtonIcon visibility={'hidden'} onClick={() => goToPostPage(navigate)} />
+                        <Image src={logo} alt="logo Labenu"/>
                         <Button
                             fontFamily={"Noto Sans"}
                             variant={'link'}
                             colorScheme={"blue"}
-                            onclick={() => goToLoginPage(navigate)}
-                            
+                            onClick={() => goToPostPage(navigate)}
+                        >Entrar
+                        </Button>
+                    </HeaderContainer>
+                )
+            
+            case `/comments/${params.postId}`:
+                return (
+                    <HeaderContainer>
+                        <CloseButtonIcon onClick={() => goToPostPage(navigate)} />
+                    
+                        <Image src={logo} alt="logo Labenu"/>
+                        <Button
+                            fontFamily={"Noto Sans"}
+                            variant={'link'}
+                            colorScheme={"blue"}
+                            onClick={logout} 
                         >Logout
                         </Button>
-                    </>
+                    </HeaderContainer>
                 )
 
             case `/*`:
                 return (
-                    <>
+                    <HeaderContainer>
                         <CloseButtonIcon onClick={() => goToPostPage(navigate)} />
                         <Image src={logo} alt="logo Labenu"/>
                         <Button
                             fontFamily={"Noto Sans"}
                             variant={'link'}
                             colorScheme={"blue"}
-                            onclick={() => goToLoginPage(navigate)}
-                            
+                            onClick={logout} 
                         >Logout
                         </Button>
-                    </>
+                    </HeaderContainer>
                 )
             default:
                 return (
                     <>
                         <CloseButtonIcon visibility={'hidden'} onClick={() => goToPostPage(navigate)} />
-                        <Image src={logo} alt="logo Labenu"/>
+                        <Image visibility={'hidden'} src={logo} alt="logo Labenu"/>
                         <Button
                             fontFamily={"Noto Sans"}
                             variant={'link'}
                             colorScheme={"blue"}
-                            onclick={() => goToLoginPage(navigate)}
-                            
+                            onClick={logout} 
+                            visibility={'hidden'}
                         >Logout
                         </Button>
                     </>
@@ -103,9 +106,9 @@ const Header = () => {
     }    
         
     return(
-        <HeaderContainer>
+        <>
             {renderHeader()}
-        </HeaderContainer>
+        </>
     )
 }
 

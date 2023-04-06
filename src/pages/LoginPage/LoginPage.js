@@ -12,13 +12,9 @@ import {
   Flex,
   Box,
   FormControl,
-  FormLabel,
   Input,
-  Checkbox,
   Stack,
-  Link,
   Button,
-  Heading,
   Text,
   useColorModeValue,
   Image,
@@ -29,11 +25,16 @@ import {
 } from '@chakra-ui/react'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { LoginPageContainer } from './LoginPage.Style'
+import { useContext } from 'react'
+import { GlobalContext } from '../../contexts/GlobalContext'
 
 
 const LoginPage = () => {
 
   const navigate = useNavigate()
+  const context = useContext(GlobalContext)
+
+  const { setIsLoggedIn, isLoggedIn } = context
 
   const [form, onChangeInputs, clearInputs] = useForm({
     email: "",
@@ -46,7 +47,6 @@ const LoginPage = () => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    console.log(form)
     setIsEmailValid(validateEmail(form.email))
     setIsPasswordValid(validatePassword(form.password))
   }
@@ -60,10 +60,11 @@ const LoginPage = () => {
         password: form.password
       }
 
-      const response = isEmailValid && isPasswordValid && await axios.post(BASE_URL + "/users/login", body)
+      const response = await axios.post(BASE_URL + "/users/login", body)
       window.localStorage.setItem('labeddit-token', response.data.token)
       setIsLoading(false)
       goToPostPage(navigate)
+      // setIsLoggedIn(true)
     } catch (error) {
       setIsLoading(false)
       console.error(error?.response?.data?.message)
@@ -73,15 +74,17 @@ const LoginPage = () => {
 
   return (
     <LoginPageContainer>
-      <Header />
+      <Header isLoggedIn={isLoggedIn} />
       <Flex
-        minH={'100vh'}
-        maxW={'428px'}
+        // minH={'100vh'}
+        minW={'428px'}
+        // maxW={'428px'}
 
         align={'start'}
         justify={'center'}
-        bg={useColorModeValue('gray.50', 'gray.800')}>
-        <Stack spacing={4} mx={'auto'} maxW={'lg'} py={12}>
+        // bg={useColorModeValue('gray.50', 'gray.800')}
+        >
+        <Stack spacing={4} maxW={'lg'} px={6} justify={'space-between'}>
           <Stack align={'center'} justify={'start'}>
             <Image boxSize='152px' src={logo} alt='Logo Labenu' />
             <Text fontSize={'16px'} color={'gray.600'}>
@@ -89,11 +92,12 @@ const LoginPage = () => {
             </Text>
           </Stack>
           <Box
+            p={1}
             rounded={'lg'}
             size='363px'
           >
             <form onSubmit={onSubmit}>
-              <Stack spacing={2} py={16} >
+              <Stack spacing={2} py={16} minW='363px'>
                 <FormControl id="email" isInvalid={!isEmailValid}>
                   <Input
                     name='email'
