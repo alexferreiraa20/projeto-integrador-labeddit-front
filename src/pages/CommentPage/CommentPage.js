@@ -19,13 +19,7 @@ const CommentPage = () => {
   const [ disliked, setDisLiked ] = useState(false)
 
   useProtectedPage()
-  // const token = window.localStorage.getItem('labeddit-token')
-
-  // const config = {
-  //   headers: {
-  //     Authorization: token
-  //   }
-  // }
+  
 
   useEffect(() => {
     const token = window.localStorage.getItem('labeddit-token')

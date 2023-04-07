@@ -29,7 +29,6 @@ const PostPage = () => {
   const [ liked, setLiked ] = useState(false)
   const [ disliked, setDisLiked ] = useState(false)
   // const [ isLoading, setIsLoading ] = useState(false)
-
  
   
   const handlePostLike = (id) => {
