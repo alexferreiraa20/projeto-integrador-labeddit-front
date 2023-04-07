@@ -1,6 +1,5 @@
 import React from 'react'
 import Header from '../../components/Header/Header'
-// import LoginForm from '../../components/Login/LoginForm'
 import logo from '../../assets/logo-labenu.svg'
 import { useForm } from "../../hooks/useForm"
 import { useState } from 'react'
@@ -8,6 +7,10 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { BASE_URL, validateEmail, validatePassword } from '../../constants/constants'
 import { goToPostPage, goToSignupPage } from '../../routes/coordinator'
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
+import { LoginPageContainer } from './LoginPage.Style'
+import { useContext } from 'react'
+import { GlobalContext } from '../../contexts/GlobalContext'
 import {
   Flex,
   Box,
@@ -16,17 +19,12 @@ import {
   Stack,
   Button,
   Text,
-  useColorModeValue,
   Image,
   Divider,
   Spinner,
   InputRightElement,
   InputGroup
 } from '@chakra-ui/react'
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
-import { LoginPageContainer } from './LoginPage.Style'
-import { useContext } from 'react'
-import { GlobalContext } from '../../contexts/GlobalContext'
 
 
 const LoginPage = () => {

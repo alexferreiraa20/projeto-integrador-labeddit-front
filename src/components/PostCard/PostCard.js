@@ -5,6 +5,7 @@ import { ArrowDownFillIcon, ArrowDownIcon } from '../Icons/ArrowDownIcon'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { goToCommentPage } from '../../routes/coordinator'
 import { GlobalContext } from '../../contexts/GlobalContext'
+import { PostContext } from '../../contexts/PostContext'
 import {
     Box,
     Text,
@@ -14,14 +15,13 @@ import {
     HStack,
     Skeleton,
 } from '@chakra-ui/react'
-import { PostContext } from '../../contexts/PostContext'
 
 export default function PostCard({ post, handlePostLike, handlePostDislike, liked, disliked  }) {
     const navigate = useNavigate()
     const location = useLocation()
     const context = useContext(GlobalContext)
-    // const postContext = useContext(PostContext)
     const { fetchPosts, isLoading } = context
+    // const postContext = useContext(PostContext)
     // const { handlePostLike, handlePostDislike } = postContext
 
     
