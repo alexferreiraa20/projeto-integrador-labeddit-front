@@ -43,13 +43,11 @@ const CommentPage = () => {
       }
 
       const response = await axios.get(BASE_URL + `/posts/${params.postId}`, config)
-      console.log(response.data)
       setCurrentPost(response.data)
       setIsLoading(false)
     } catch (error) {
       setIsLoading(false)
       console.error(error?.response?.data)
-      console.log(error?.response)
       window.alert("Erro ao buscar o post!")
     }
   }
@@ -69,7 +67,7 @@ const CommentPage = () => {
         BASE_URL + `/comments/${params.postId}`, 
         config
       )
-      console.log(response.data)
+      (response.data)
       setComments(response.data)
       setIsLoading(false)
     } catch (error) {
@@ -111,8 +109,6 @@ const CommentPage = () => {
         }
       
         await axios.put(BASE_URL + `/comments/${id}/like`, body, config)
-
-        // console.log(response)
  
       } catch (error) {
         console.error(error?.response)
@@ -126,7 +122,6 @@ const CommentPage = () => {
 
      useEffect(() => {
       fetchComments()
-    console.log("NOVA REQUISIÇÃO")
      }, [ ])
   
   

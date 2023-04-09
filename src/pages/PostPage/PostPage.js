@@ -24,11 +24,9 @@ const PostPage = () => {
     }
   }, [])
 
-  console.log(posts)
 
   const [ liked, setLiked ] = useState(false)
   const [ disliked, setDisLiked ] = useState(false)
-  // const [ isLoading, setIsLoading ] = useState(false)
  
   
   const handlePostLike = (id) => {
@@ -60,13 +58,10 @@ const PostPage = () => {
           }
         }
       
-        const response = await axios.put(BASE_URL + `/posts/${id}/like`, body, config)
-
-        console.log(response)
+        await axios.put(BASE_URL + `/posts/${id}/like`, body, config)
  
       } catch (error) {
         console.error(error?.response)
-        // window.alert(error?.response?.data)
       }
     }    
   

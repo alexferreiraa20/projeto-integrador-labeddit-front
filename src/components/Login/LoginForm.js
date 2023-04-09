@@ -29,7 +29,6 @@ import {
   
     const onSubmit = (e) => {
       e.preventDefault()
-      console.log(form)
       setIsEmailValid(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(form.email))
     }
 
