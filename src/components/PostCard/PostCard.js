@@ -21,32 +21,14 @@ export default function PostCard({ post, handlePostLike, handlePostDislike, like
     const location = useLocation()
     const context = useContext(GlobalContext)
     const { fetchPosts, isLoading } = context
-    // const postContext = useContext(PostContext)
-    // const { handlePostLike, handlePostDislike } = postContext
 
     
     const [isLiked, setIsLiked] = useState(false)
     const [isDisliked, setIsDisLiked] = useState(false)   
-    // const [ isLoading, setIsLoading ] = useState(false)
     
       useEffect(() => {
-        // setIsLoading(true)
         fetchPosts()
-        // setIsLoading(false)
-        // if (liked===true) {
-        //     setIsLiked(true)
-        //     setIsDisLiked(false)
-    
-        // } else if (disliked===false) {
-        //     setIsLiked(false)
-        //     setIsDisLiked(true)
-        // } else {
-        //     setIsLiked(false)
-        //     setIsDisLiked(false)
-        // }
-        // refreshPage()
-        console.log(liked)
-        console.log(disliked)
+        
        }, [ liked, disliked ])
 
     return (

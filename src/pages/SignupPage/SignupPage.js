@@ -47,7 +47,6 @@ const SignupPage = () => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    console.log(form)
     setIsEmailValid(validateEmail(form.email))
     setIsPasswordValid(validatePassword(form.password))
     setIsNickNameValid(validateText(form.nickName))
@@ -70,7 +69,6 @@ const SignupPage = () => {
     } catch (error) {
       setIsLoading(false)
       console.error(error?.response?.data?.message)
-      console.log(error?.response?.data?.message)
       window.alert(error?.response?.data?.message)
     }
   }
