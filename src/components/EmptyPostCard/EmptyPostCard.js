@@ -60,7 +60,6 @@ export default function EmptyPostCard() {
 
       const onSubmit = () => {
         setIsContentValid(validateText(form.content))
-          // console.log(form)
       }
 
         return (

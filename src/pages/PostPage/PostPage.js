@@ -79,7 +79,7 @@ const PostPage = () => {
       <PostPageContainer>
           <Header/>
           <EmptyPostCard/>
-          {posts.map((post) => {
+          {posts && posts.map((post) => {
             return <PostCard
             key={post.id}
             post={post}

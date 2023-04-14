@@ -31,6 +31,7 @@ export default function PostCard({ post, handlePostLike, handlePostDislike, like
         
        }, [ liked, disliked ])
 
+      
     return (
         <Center pt={2}>
             <Skeleton

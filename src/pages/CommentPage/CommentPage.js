@@ -25,8 +25,8 @@ const CommentPage = () => {
     const token = window.localStorage.getItem('labeddit-token')
 
     if (token) {
-      fetchComments()
       fetchCurrentPost()
+      fetchComments()
     }
   }, [])
 
@@ -63,11 +63,7 @@ const CommentPage = () => {
         }
       }
 
-      const response = await axios.get(
-        BASE_URL + `/comments/${params.postId}`, 
-        config
-      )
-      (response.data)
+      const response = await axios.get(BASE_URL + `/comments/${params.postId}`, config)
       setComments(response.data)
       setIsLoading(false)
     } catch (error) {
@@ -137,7 +133,7 @@ const CommentPage = () => {
       <EmptyCommentCard
       fetchComments={fetchComments}
       />
-     {comments.map((comment) => {
+     {comments && comments?.map((comment) => {
       return <CommentCard
         key={comment.id}
         comment={comment}
