@@ -11,33 +11,15 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { LoginPageContainer } from './LoginPage.Style'
 import { useContext } from 'react'
 import { GlobalContext } from '../../contexts/GlobalContext'
-import {
-  Flex,
-  Box,
-  FormControl,
-  Input,
-  Stack,
-  Button,
-  Text,
-  Image,
-  Divider,
-  Spinner,
-  InputRightElement,
-  InputGroup
-} from '@chakra-ui/react'
+import {Flex,Box,FormControl,Input,Stack,Button,Text,Image,Divider,Spinner,InputRightElement,InputGroup} from '@chakra-ui/react'
 
 
 const LoginPage = () => {
-
   const navigate = useNavigate()
   const context = useContext(GlobalContext)
-
   const { setIsLoggedIn, isLoggedIn } = context
-
   const [form, onChangeInputs, clearInputs] = useForm({
-    email: "",
-    password: ""
-  })
+    email: "", password: ""})
   const [ isEmailValid, setIsEmailValid ] = useState(true)
   const [ isPasswordValid, setIsPasswordValid ] = useState(true)
   const [ isLoading, setIsLoading ] = useState(false)
@@ -48,25 +30,21 @@ const LoginPage = () => {
     setIsEmailValid(validateEmail(form.email))
     setIsPasswordValid(validatePassword(form.password))
   }
-
   const login = async () => {
     try {
       setIsLoading(true)
-
       const body = {
         email: form.email,
         password: form.password
       }
-
       const response = await axios.post(BASE_URL + "/users/login", body)
       window.localStorage.setItem('labeddit-token', response.data.token)
       setIsLoading(false)
       goToPostPage(navigate)
-      // setIsLoggedIn(true)
     } catch (error) {
       setIsLoading(false)
       console.error(error?.response?.data?.message)
-      window.alert("Erro ao fazer o login!")
+      window.alert("Não conseguimos efetuar o login, tente novamente")
     }
   }
 
@@ -74,13 +52,9 @@ const LoginPage = () => {
     <LoginPageContainer>
       <Header isLoggedIn={isLoggedIn} />
       <Flex
-        // minH={'100vh'}
         minW={'428px'}
-        // maxW={'428px'}
-
         align={'start'}
         justify={'center'}
-        // bg={useColorModeValue('gray.50', 'gray.800')}
         >
         <Stack spacing={4} maxW={'lg'} px={6} justify={'space-between'}>
           <Stack align={'center'} justify={'start'}>
@@ -131,7 +105,6 @@ const LoginPage = () => {
                 </FormControl>
                 <Stack spacing={2} py={10}>
                   <Stack
-                    // direction={{ base: 'column', sm: 'row' }}
                     align={'start'}
                     justify={'space-between'}>
                   </Stack>
@@ -171,5 +144,4 @@ const LoginPage = () => {
     </LoginPageContainer>
   )
 }
-
 export default LoginPage

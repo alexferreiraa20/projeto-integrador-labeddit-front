@@ -26,13 +26,11 @@ export default function App() {
     try {
       setIsLoading(true)
       const token = window.localStorage.getItem('labeddit-token')
-
       const config = {
         headers: {
           Authorization: token
         }
       }
-
       const response = await axios.get(BASE_URL + "/posts", config)
       setPosts(response.data)
       setIsLoading(false)
@@ -41,19 +39,9 @@ export default function App() {
       window.alert("Erro ao buscar os posts!")
     }
   }
-  
-    
-
   const context = {
-    posts,
-    fetchPosts,
-    isLoading,
-    setIsLoading,
-    isLoggedIn,
-    setIsLoggedIn
+    posts,fetchPosts,isLoading,setIsLoading,isLoggedIn,setIsLoggedIn
   }
-
-
   return (
     <ChakraProvider resetCSS  >
       <GlobalContext.Provider value={context}>

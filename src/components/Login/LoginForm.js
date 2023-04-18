@@ -1,38 +1,18 @@
-import {
-    Flex,
-    Box,
-    FormControl,
-    FormLabel,
-    Input,
-    Checkbox,
-    Stack,
-    Link,
-    Button,
-    Heading,
-    Text,
-    useColorModeValue,
-    Image,
-    Divider
-  } from '@chakra-ui/react';
+import {Flex,Box,FormControl,FormLabel,Input,Checkbox,Stack,Link,Button,Heading,Text,useColorModeValue,Image,Divider} from '@chakra-ui/react';
   import { useState } from 'react';
   import logo from '../../assets/logo-labenu.svg'
   import { useForm } from '../../hooks/useForm';
   
   export default function LoginForm() {
-
     const [ form, onChangeInputs, clearInputs ] = useForm({
       email: "",
       password: ""
     })
     const [ isEmailValid, setIsEmailValid ] = useState(true)
-    
-  
     const onSubmit = (e) => {
       e.preventDefault()
       setIsEmailValid(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(form.email))
     }
-
-
     return (
       <Flex
         minH={'100vh'}
@@ -54,7 +34,6 @@ import {
               <form onSubmit={onSubmit}/>
               <FormControl id="email" isInvalid={!isEmailValid}>
                 <Input 
-                  // type="email"
                   value={form.email}
                   onChange={onChangeInputs} 
                   placeholder='E-mail' />
@@ -68,7 +47,6 @@ import {
               </FormControl>
               <Stack spacing={2}>
                 <Stack
-                  // direction={{ base: 'column', sm: 'row' }}
                   align={'start'}
                   justify={'space-between'}>
                 </Stack>

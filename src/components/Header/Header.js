@@ -5,18 +5,13 @@ import close from "../../assets/close-icon.svg"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { useContext } from "react"
 import { goToPostPage, goToLoginPage } from "../../routes/coordinator"
-import { 
-    Button, 
-    Image,
-    Link
-} from '@chakra-ui/react';
+import { Button, Image,Link} from '@chakra-ui/react';
 import { CloseButtonIcon } from "../Icons/CloseButtonIcon"
 
 
 const Header = ({ isLoggedIn }) => {
     const navigate = useNavigate()
     const location = useLocation()
-    // const context = useContext(GlobalContext)
     const params = useParams()
 
     const logout = () => {
@@ -56,7 +51,6 @@ const Header = ({ isLoggedIn }) => {
                         </Button>
                     </HeaderContainer>
                 )
-            
             case `/comments/${params.postId}`:
                 return (
                     <HeaderContainer>
@@ -72,7 +66,6 @@ const Header = ({ isLoggedIn }) => {
                         </Button>
                     </HeaderContainer>
                 )
-
             case `/*`:
                 return (
                     <HeaderContainer>
@@ -111,5 +104,4 @@ const Header = ({ isLoggedIn }) => {
         </>
     )
 }
-
 export default Header

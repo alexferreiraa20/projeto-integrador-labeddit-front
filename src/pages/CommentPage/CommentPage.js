@@ -11,37 +11,29 @@ import { useProtectedPage } from '../../hooks/useProtectedPage'
 
 const CommentPage = () => {
   const params = useParams()
-
   const [ comments, setComments ] = useState([])
   const [ currentPost , setCurrentPost ] = useState([])
   const [ isLoading, setIsLoading ] = useState(false)
   const [ liked, setLiked ] = useState(false)
   const [ disliked, setDisLiked ] = useState(false)
-
   useProtectedPage()
-  
-
   useEffect(() => {
     const token = window.localStorage.getItem('labeddit-token')
-
     if (token) {
       fetchCurrentPost()
       fetchComments()
     }
-  }, [])
+  },[])
 
   const fetchCurrentPost = async () => {
     try {
       setIsLoading(true)
-
       const token = window.localStorage.getItem('labeddit-token')
-
       const config = {
         headers: {
           Authorization: token
         }
       }
-
       const response = await axios.get(BASE_URL + `/posts/${params.postId}`, config)
       setCurrentPost(response.data)
       setIsLoading(false)
@@ -56,13 +48,11 @@ const CommentPage = () => {
     try {
       setIsLoading(true)
       const token = window.localStorage.getItem('labeddit-token')
-
       const config = {
         headers: {
           Authorization: token
         }
       }
-
       const response = await axios.get(BASE_URL + `/comments/${params.postId}`, config)
       setComments(response.data)
       setIsLoading(false)
@@ -80,9 +70,7 @@ const CommentPage = () => {
       likeDislikeComment(id,body)
       setLiked(!liked)
       setDisLiked(disliked)
-      // fetchPosts()
     }
-
     const handleDislike = (id) => {
       const body = {
           like: false
@@ -90,45 +78,33 @@ const CommentPage = () => {
       likeDislikeComment(id,body)
       setDisLiked(!disliked)
       setLiked(liked)
-      // handleRefresh()
       }
-
     const likeDislikeComment = async (id, body) => {
       try {
-
         const token = window.localStorage.getItem('labeddit-token');
-
         const config = {
           headers: {
             Authorization: token
           }
         }
-      
         await axios.put(BASE_URL + `/comments/${id}/like`, body, config)
- 
       } catch (error) {
         console.error(error?.response)
         window.alert(error?.response?.data)
       }
     }    
-  
     useEffect(() => {
       fetchComments()
      }, [ liked, disliked ])
-
      useEffect(() => {
       fetchComments()
-     }, [ ])
-  
-  
+     },[])
   return (
     <CommentsPageContainer>
      <Header/>    
       <PostCard
         isLoading={isLoading} 
         post={currentPost}
-        // handleLike={handleLike} 
-        // handleDislike={handleDislike}
       />     
       <EmptyCommentCard
       fetchComments={fetchComments}
@@ -146,9 +122,7 @@ const CommentPage = () => {
         isLoading={isLoading} 
       />
      })}
-
     </CommentsPageContainer>
   )
 }
-
 export default CommentPage

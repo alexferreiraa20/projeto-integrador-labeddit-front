@@ -5,8 +5,8 @@ export const HeaderContainer = styled.header`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    max-width: 428px;
-    margin-top: 44px;
+    max-width: 429px;
+    margin-top: 43px;
     min-height: 50px;
     padding-left: 30px;
     padding-right:30px;

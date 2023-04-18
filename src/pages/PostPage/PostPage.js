@@ -13,22 +13,16 @@ const PostPage = () => {
   const context = useContext(GlobalContext)
 
   const { posts, fetchPosts, isLoading, setIsLoading } = context
-
   useProtectedPage()
-
   useEffect(() => {
     const token = window.localStorage.getItem('labeddit-token')
-
     if (token) {
       fetchPosts()
     }
-  }, [])
-
+  },[])
 
   const [ liked, setLiked ] = useState(false)
-  const [ disliked, setDisLiked ] = useState(false)
- 
-  
+  const [ disliked, setDisLiked ] = useState(false)  
   const handlePostLike = (id) => {
       const body = {
           like: true
@@ -49,17 +43,13 @@ const PostPage = () => {
 
     const likeDislikePost = async (id, body) => {
       try {
-
         const token = window.localStorage.getItem('labeddit-token');
-
         const config = {
           headers: {
             Authorization: token
           }
         }
-      
         await axios.put(BASE_URL + `/posts/${id}/like`, body, config)
- 
       } catch (error) {
         console.error(error?.response)
       }
@@ -93,5 +83,4 @@ const PostPage = () => {
     </PostContext.Provider>
   )
 }
-
 export default PostPage

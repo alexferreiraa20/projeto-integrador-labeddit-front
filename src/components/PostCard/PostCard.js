@@ -5,33 +5,19 @@ import { ArrowDownFillIcon, ArrowDownIcon } from '../Icons/ArrowDownIcon'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { goToCommentPage } from '../../routes/coordinator'
 import { GlobalContext } from '../../contexts/GlobalContext'
-import { PostContext } from '../../contexts/PostContext'
-import {
-    Box,
-    Text,
-    Image,
-    Flex,
-    Center,
-    HStack,
-    Skeleton,
-} from '@chakra-ui/react'
+import {Box,Text,Image,Flex,Center,HStack,Skeleton,} from '@chakra-ui/react'
 
 export default function PostCard({ post, handlePostLike, handlePostDislike, liked, disliked  }) {
     const navigate = useNavigate()
     const location = useLocation()
     const context = useContext(GlobalContext)
     const { fetchPosts, isLoading } = context
-
-    
     const [isLiked, setIsLiked] = useState(false)
     const [isDisliked, setIsDisLiked] = useState(false)   
     
       useEffect(() => {
         fetchPosts()
-        
-       }, [ liked, disliked ])
-
-      
+       },[ liked, disliked ])
     return (
         <Center pt={2}>
             <Skeleton
@@ -94,7 +80,6 @@ export default function PostCard({ post, handlePostLike, handlePostDislike, like
                         </Flex>) : (<Flex
                             p={1}
                             cursor="pointer"
-                            //  onClick={() => handlePostLike(post.id)}
                         >
                             {isLiked ? (
                                 <ArrowUpFillIcon fill="#008000" fontSize={'24px'} /> 
@@ -124,7 +109,6 @@ export default function PostCard({ post, handlePostLike, handlePostDislike, like
                                 {post?.dislikes}
                             </Text>
                         </Box>
-
                         {location.pathname === '/'? (
                             <Flex
                             p={1}
@@ -176,7 +160,6 @@ export default function PostCard({ post, handlePostLike, handlePostDislike, like
                                 {post?.replies}
                             </Text>
                         </Flex>
-
                     </HStack>
                 </HStack>
             </Box>

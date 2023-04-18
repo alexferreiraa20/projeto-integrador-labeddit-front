@@ -4,37 +4,21 @@ import { useForm } from '../../hooks/useForm'
 import axios from 'axios'
 import { BASE_URL, validateText } from '../../constants/constants'
 import { GlobalContext } from '../../contexts/GlobalContext'
-import {
-  Box,
-  Flex,
-  useColorModeValue,
-  Stack,
-  FormControl,
-  Button,
-  Spinner,
-  Textarea,
-  Skeleton
-} from '@chakra-ui/react'
+import {Box,Flex,useColorModeValue,Stack,FormControl,Button,Spinner,Textarea,Skeleton} from '@chakra-ui/react'
 
 export default function EmptyPostCard() {
 
   const context = useContext(GlobalContext)
-
   const { posts, fetchPosts } = context
-
       const [isLoading, setIsLoading] = useState(false)
       const [isContentValid, setIsContentValid] = useState(true)
-
       const [form, onChangeInputs, clearInputs] = useForm({
         content: ""
       })
-      
       const createPost = async () => {
         try {
           setIsLoading(true)
-
           const token = window.localStorage.getItem('labeddit-token');
-
           const config = {
             headers: {
               Authorization: token
@@ -44,9 +28,7 @@ export default function EmptyPostCard() {
           const body = {
             content: form.content,
           }
-    
           isContentValid && await axios.post(BASE_URL + "/posts", body, config)
-
           setIsLoading(false)
           clearInputs()
           window.alert("Post criado com sucesso!")
@@ -57,11 +39,9 @@ export default function EmptyPostCard() {
           window.alert(error?.response?.data)
         }
       }
-
       const onSubmit = () => {
         setIsContentValid(validateText(form.content))
       }
-
         return (
         <Flex
           minH={'10vh'}
@@ -76,7 +56,6 @@ export default function EmptyPostCard() {
         <Stack spacing={4} mx={'auto'} maxW={'lg'} borderBottom={'1px'} borderBottomColor={'linear(90deg, #FF6489 0%, #F9B24E 100%)'}>          
           <Box
             rounded={'lg'}
-            // size='363px'
           >
             <form onSubmit={onSubmit} >
               <Stack spacing={2} py={6} >
@@ -90,7 +69,6 @@ export default function EmptyPostCard() {
                     autoComplete='off'
                     bg={useColorModeValue('gray.50', 'gray.800')}
                     w= '364px'
-                    // w= '100%'
                     h= '131px'
                   />
                 </FormControl>                

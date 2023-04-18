@@ -5,9 +5,7 @@ import { goToPostPage, goToSignupPage } from '../../routes/coordinator'
 
 
 export function NotFound() {
-
   const navigate = useNavigate()
-
   return (
     <Box textAlign="center" py={10} px={6}>
       <Heading
@@ -35,8 +33,6 @@ export function NotFound() {
     </Box>
   );
 }
-
-
 export const ErrorPageContainer = styled.main`
     display: flex;
     flex-direction: column;

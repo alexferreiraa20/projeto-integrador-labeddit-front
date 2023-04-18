@@ -4,23 +4,7 @@ import Header from '../../components/Header/Header'
 import { useNavigate } from 'react-router-dom'
 import { goToPostPage, goToLoginPage } from '../../routes/coordinator'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
-import {
-  Flex,
-  Box,
-  FormControl,
-  FormLabel,
-  Input,
-  InputGroup,
-  HStack,
-  InputRightElement,
-  Stack,
-  Button,
-  Heading,
-  Text,
-  useColorModeValue,
-  Link,
-  Checkbox
-} from '@chakra-ui/react';
+import {Flex,Box,FormControl,FormLabel,Input,InputGroup,HStack,InputRightElement,Stack,Button,Heading,Text,useColorModeValue,Link,Checkbox} from '@chakra-ui/react';
 import { BASE_URL, validateEmail, validatePassword, validateText } from '../../constants/constants';
 import { useForm } from '../../hooks/useForm';
 import axios from 'axios';
@@ -29,16 +13,13 @@ import { SignupPageContainer } from './SignupPage.Style';
 
 
 const SignupPage = () => {
-
   const navigate = useNavigate()
-
   const [ showPassword, setShowPassword ] = useState(false)
   const [ isChecked, setIsChecked ] = useState(false)
   const [ isEmailValid, setIsEmailValid ] = useState(true)
   const [ isPasswordValid, setIsPasswordValid ] = useState(true)
   const [ isNickNameValid, setIsNickNameValid ] = useState(true)
   const [ isLoading, setIsLoading ] = useState(false)
-
   const [form, onChangeInputs, clearInputs] = useForm({
     nickName: "",
     email: "",
@@ -51,17 +32,14 @@ const SignupPage = () => {
     setIsPasswordValid(validatePassword(form.password))
     setIsNickNameValid(validateText(form.nickName))
   }
-
   const signup = async () => {
     try {
       setIsLoading(true)
-
       const body = {
         nickName: form.nickName,
         email: form.email,
         password: form.password
       }
-
       const response = await axios.post(BASE_URL + "/users/signup", body)
       window.localStorage.setItem('labeddit-token', response.data.token)
       setIsLoading(false)
@@ -192,5 +170,4 @@ const SignupPage = () => {
     </SignupPageContainer>
   )
 }
-
 export default SignupPage

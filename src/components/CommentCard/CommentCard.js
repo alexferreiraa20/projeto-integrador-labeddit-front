@@ -2,14 +2,7 @@ import { useState } from 'react'
 import ballon from '../../assets/comment-button.svg'
 import { ArrowUpIcon, ArrowUpFillIcon } from '../Icons/ArrowUpIcon'
 import { ArrowDownFillIcon, ArrowDownIcon } from '../Icons/ArrowDownIcon'
-import {
-    Box,
-    Text,
-    Flex,
-    Center,
-    HStack,
-    Skeleton,
-} from '@chakra-ui/react'
+import {Box,Text,Flex,Center,HStack,Skeleton,} from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 
 export default function CommentCard({ comment, handleLike, handleDislike, isLoading }) {
@@ -21,11 +14,6 @@ export default function CommentCard({ comment, handleLike, handleDislike, isLoad
 
     return (
         <Center pt={2}>
-            {/* <Skeleton
-            isLoaded={!isLoading}
-            w="364px"
-            borderRadius={'12px'}
-            > */}
             <Box
                 w="364px"
                 borderRadius={'12px'}
@@ -36,14 +24,11 @@ export default function CommentCard({ comment, handleLike, handleDislike, isLoad
             >
                 <Box py={1} px={2}>
                     <Box
-                        // bg="black"
                         display={'inline-block'}
-                        // w={'132px'}
                         w={"100%"}
                         h={'16px'}
                         color="#6F6F6F"
                         mb={4}
-
                     >
                         <Text
                             fontSize={'12px'}
@@ -116,7 +101,6 @@ export default function CommentCard({ comment, handleLike, handleDislike, isLoad
                     
                 </HStack>
             </Box>
-            {/* </Skeleton> */}
         </Center>
     )
 }

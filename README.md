@@ -1,21 +1,8 @@
 # Projeto Labeddit Frontend
 
-
-
 ![Labeddit](./src/assets/logo-labenu.svg)
 <br>
-Labeddit é uma rede social onde você pode postar mensagens, responder as tanto as suas mensagens quanto dos seus amigos. Além disso, se gostar da mensagem ou comentário, você pode curtir, entretanto, se não gostar do comentário, pode descurtir a mensagem mostrando seu descontentamento.
-Projeto de conclusão do curso de programação web fullstack com produção do backend utilizando typescript de Front end com utilização do React e suas bibliotecas.
-
-## Índice
-- <a href="#funcionalidades">Funcionalidades do Projeto</a>
-- <a href="#layout">Layout</a>
-- <a href="#api">Banco de dados e API</a>
-- <a href="#rodar">Como rodar esse projeto</a>
-- <a href="#tecnologias">Tecnologias utilizadas</a>
-- <a href="#autoras">Pessoas autoras</a>
-- <a href="#passos">Próximos passos</a>
-
+Labeddit é uma rede social onde você pode postar mensagens, responder mensagens. Além disso, foram adicionadas funcionalidades de "like" e "dislike", possibilitando uma maior interação entre os usuários.
 ## Funcionalidades
 
 - [x] Criação de usuário com senha
@@ -24,17 +11,9 @@ Projeto de conclusão do curso de programação web fullstack com produção do 
 - [x] Reação dos usuários ao post
 - [x] Criação de resposta ao post
 - [x] Reação dos usuários à resposta
+## API
 
-## Layout
-
-![Página da login](./src/assets/login-page.png)
-![Página de signup](./src/assets/signup-page.png)
-![Página dos posts](./src/assets/post-page.png)
-![Página dos comentários dos posts](./src/assets/comment-page.png)
-
-## Banco de dados e API
-
-https://github.com/Casenrique/projeto-labeddit-backend
+https://documenter.getpostman.com/view/24460800/2s93Xzwh2S
 
 
 ## Demonstração
@@ -70,19 +49,6 @@ http://localhost:3000
 
 ## Pessoas Autoras
 
-<img style="width:200px" src="https://github.com/Casenrique.png" alt="Imagem do desenvolvedor">
+https://github.com/alexferreiraa20
 
-[Linkedin](https://www.linkedin.com/in/carlos-henrique-de-souza-1767311a/)
-
-## Próximos passos
-
-- [ ] Adicionar funcionalidade de reset de senha
-- [ ] Melhorar estilização da função like e dislike
-
-
-
-
-
-
-
-
+[Linkedin](https://www.linkedin.com/in/alex-ferreira-860010171/)
