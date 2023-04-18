@@ -13,7 +13,6 @@ const Header = ({ isLoggedIn }) => {
     const navigate = useNavigate()
     const location = useLocation()
     const params = useParams()
-
     const logout = () => {
         if(isLoggedIn) {
             window.localStorage.removeItem('labeddit-token')
